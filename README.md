@@ -5,8 +5,6 @@
 npm i internetztube/vuex-json-relationship-resolver
 ```
 
-## API Endpoints
-
 ## Usage
 
 store.js
@@ -48,6 +46,8 @@ component.vue
   }
 </script>
 ```
+
+## API Endpoints
 
 ### Schema
 ```json
