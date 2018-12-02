@@ -55,6 +55,9 @@ module.exports = (context, path) => {
   };
 
   const buildRequestUrl = (path) => {
+    if (!window.apiBaseUrl) {
+      return path;
+    }
     let url = window.apiBaseUrl + path;
     if (path.indexOf(window.apiBaseUrl) >= 0) url = path;
     return url;
