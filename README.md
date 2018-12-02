@@ -36,7 +36,7 @@ component.vue
 </template>
 
 <script>
-  const {mapObject} = require('vuex-json-relationship-resolver);
+  const {mapObject} = require('vuex-json-relationship-resolver');
 
   module.exports = {
     computed: {
