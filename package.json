@@ -1,0 +1,24 @@
+{
+  "name": "vue-json-relationship-resolver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/internetztube/vue-json-relationship-resolver.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/internetztube/vue-json-relationship-resolver/issues"
+  },
+  "homepage": "https://github.com/internetztube/vue-json-relationship-resolver#readme",
+  "dependencies": {
+    "camelcase": "^5.0.0",
+    "deepmerge": "^2.2.1",
+    "moment": "^2.22.2"
+  }
+}
