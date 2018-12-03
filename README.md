@@ -76,6 +76,10 @@ component.vue
 ## Reserved vuex functions and properties
 *Actually you won't really need them, but you should ba aware of them because of name collisions.*
 
+### State
+* `apiObjects`
+* `loadingResources`
+
 ### Getter
 * `isApiResourceLoading`
 
@@ -84,7 +88,7 @@ component.vue
 * `setApiResourceDoneLoading`
 * `storeApiObject`
 
-# Actions
+### Actions
 * `fetch`
 * `clearApiObjects`
 * `apiObjectByUrl`
