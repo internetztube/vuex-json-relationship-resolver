@@ -79,10 +79,7 @@ export default {
     }),
     ...mapObjectLoading({
       isUserLoading: 'user/current'
-    }),
-    isUserLoading () {
-      return this.$store.getters['rr/isObjectLoading']('user/current')
-    }
+    })
   },
   created () {
     this.$store.dispatch('init')
