@@ -53,16 +53,12 @@ component.vue
 ```html
 <template>
   <div id="app">
-    <div v-if="isUserLoading">loading</div>
+    <div v-if="isUserLoading">user is loading</div>
     <pre v-else>{{ user }}</pre>
     <div v-if="user">
-      <div v-if="user.userGroupList">
-        <div v-for="(userGroup, index) in user.userGroupList" :key="index">
-          <div v-if="userGroup._loading">loading</div>
-          <div v-else>
-            <pre>{{ userGroup }}</pre>
-          </div>
-        </div>
+      <div v-for="(userGroup, index) in user.userGroupList" :key="index">
+        <div v-if="userGroup._loading">user group loading</div>
+        <pre v-else>{{ userGroup }}</pre>
       </div>
     </div>
   </div>
