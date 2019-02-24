@@ -40,7 +40,7 @@ let store = {
   modules: {
     rr: relationshipResolverModule
   },
-  getter: {...},
+  getters: {...},
   mutations: {...},
   actions: {...}
 };
