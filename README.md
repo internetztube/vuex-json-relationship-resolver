@@ -122,8 +122,8 @@ https://api.test/v1.0/user-group/3
     "id": 3,
     "type": "user-group",
     "attributes": {
-      "name": "Laska Salesman",
-      "handle": "laskaSalesman"
+      "name": "Admin",
+      "handle": "admin"
     },
     "links": {
       "self": "https://api.test/v1.0/user-group/3"
