@@ -19,7 +19,6 @@ const findObjectByUrl = (context, url) => {
     _empty: typeof foundObject === 'undefined'
   }
   const result = Object.assign(foundObject, metaObject)
-  console.log(result)
   return result
 }
 
