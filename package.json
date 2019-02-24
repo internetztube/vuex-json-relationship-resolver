@@ -1,5 +1,5 @@
 {
-  "name": "vue-json-relationship-resolver",
+  "name": "vuex-json-relationship-resolver",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",

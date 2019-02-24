@@ -1,10 +1,9 @@
-const localStore = require('./store');
-const deepmerge = require('deepmerge').default;
-const mapObject = require('./mapObject');
+import module from './store-module'
+import mapObject from './mapper/mapObject'
+import mapObjectLoading from './mapper/mapObjectLoading'
 
-module.exports = {
-  storeInjector: () => {
-    return deepmerge(localStore, store);
-  },
-  mapObject
-};
+export {
+  module,
+  mapObject,
+  mapObjectLoading
+}
