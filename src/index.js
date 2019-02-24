@@ -1,4 +1,4 @@
-import module from './store-module'
+import module from './module'
 import mapObject from './mapper/mapObject'
 import mapObjectLoading from './mapper/mapObjectLoading'
 
