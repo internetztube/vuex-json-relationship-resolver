@@ -15,8 +15,8 @@ const findObjectByUrl = (context, url) => {
     foundObject = {}
   }
   const metaObject = {
-    isLoading: context.getters.isObjectLoading(url),
-    isEmpty: typeof foundObject === 'undefined'
+    _loading: context.getters.isObjectLoading(url),
+    _empty: typeof foundObject === 'undefined'
   }
   const result = Object.assign(foundObject, metaObject)
   console.log(result)
