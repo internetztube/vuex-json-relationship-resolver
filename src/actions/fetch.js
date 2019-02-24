@@ -26,7 +26,6 @@ const fetchMethod = (context, customHelpers, endpoint) => {
         })
       })
       .catch((response) => {
-        debugger
         if (customHelpers.hasOwnProperty('onRequestNetworkError')) customHelpers.onRequestNetworkError(context.rootState, { endpoint, response })
       })
   })
