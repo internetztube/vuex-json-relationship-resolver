@@ -118,7 +118,7 @@ https://api.test/v1.0/user/311
 }
 ```
 
-https://stage.laska-api.fredmansky.com/api/v1.0/user-group/3
+https://api.test/v1.0/user-group/3
 ```js
 {
   "data": {
@@ -129,7 +129,7 @@ https://stage.laska-api.fredmansky.com/api/v1.0/user-group/3
       "handle": "laskaSalesman"
     },
     "links": {
-      "self": "https://stage.laska-api.fredmansky.com/api/v1.0/user-group/3"
+      "self": "https://api.test/v1.0/user-group/3"
     }
   },
   "status_code": 200
