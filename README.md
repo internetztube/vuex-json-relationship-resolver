@@ -7,88 +7,131 @@ npm i internetztube/vuex-json-relationship-resolver
 
 ## Usage
 
+Since this module needs some necessarily helper, it is recommended to extract this logic into a separate file. As you can see here.
+
+relationshipResolver.js
+```js
+import { module } from 'vuex-json-relationship-resolver'
+
+const relationshipResolverOptions = {
+  customHelpers: {
+    buildEndpointUrl (rootState, { endpoint }) {
+      if (endpoint.indexOf('http://api.test/v1/') >= 0) return endpoint
+      return 'http://api.test/v1/' + endpoint
+    },
+    requestOptions (rootState, { endpoint }) {
+      return {
+        headers: {}
+      }
+    }
+  }
+}
+
+export default module(relationshipResolverOptions)
+```
+
+
+
 store.js
 ```js
-const {storeInjector} = require('vuex-json-relationship-resolver');
+import relationshipResolverModule from './relationshipResolver'
 
 let store = {
+  modules: {
+    rr: relationshipResolverModule
+  },
   getter: {...},
   mutations: {...},
-  actions: {...},
-  ...
+  actions: {...}
 };
-store = storeInjector(store);
+store = storeInjector(store)
 
-module.exports = store;
+export default store
 ```
 
 component.vue
 ```html
 <template>
-  <div v-if="user">
-    <pre>{{ user }}</pre>
-    <span v-for="post in user.posts" v-if="post">
-      <pre>{{ post }}</pre>
-    </span>
+  <div id="app">
+    <div v-if="isUserLoading">loading</div>
+    <pre v-else>{{ user }}</pre>
+    <div v-if="user">
+      <div v-if="user.userGroupList">
+        <div v-for="(userGroup, index) in user.userGroupList" :key="index">
+          <div v-if="userGroup._loading">loading</div>
+          <div v-else>
+            <pre>{{ userGroup }}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-  const {mapObject} = require('vuex-json-relationship-resolver');
+import { mapObject, mapObjectLoading } from 'vuex-json-relationship-resolver'
 
-  module.exports = {
-    computed: {
-      ...mapObject({user: {type: 'user', isArray: false}});
-    },
-    mounted() {
-      this.$store.dispatch('fetch', 'http://demo.test/api/user/1');
+export default {
+  name: 'app',
+  computed: {
+    ...mapObject({
+      user: { type: 'user', isArray: false }
+    }),
+    ...mapObjectLoading({
+      isUserLoading: 'user/current'
+    }),
+    isUserLoading () {
+      return this.$store.getters['rr/isObjectLoading']('user/current')
     }
+  },
+  created () {
+    this.$store.dispatch('init')
   }
+}
 </script>
 ```
 
 ## API Endpoints
 
-### Schema
+### Demo Endpoints for the example above
+
+https://api.test/v1.0/user/311
 ```json
 {
   "data": {
-    "id": 1,
+    "id": "311",
     "type": "user",
     "attributes": {
       "firstname": "John",
-      "lastname": "Doe",
+      "lastname": "Doe"
     },
     "relationships": {
-      "posts": [
-        "http://demo.test/api/post/1",
-        "http://demo.test/api/post/2",
-      ],
-      "address": "http://demo.test/api/address/1",
+      "user-group": [
+        "https://api.test/v1.0/user-group/3"
+      ]
     },
     "links": {
-      "self": "http://demo.test/api/user/1",
+      "self": "https://api.test/v1.0/user/311"
     }
-  }
+  },
+  "status_code": 200
 }
 ```
 
-## Reserved vuex functions and properties
-*Actually you won't really need them, but you should ba aware of them because of name collisions.*
-
-### State
-* `apiObjects`
-* `loadingResources`
-
-### Getter
-* `isApiResourceLoading`
-
-### Mutations
-* `setApiResourceLoading`
-* `setApiResourceDoneLoading`
-* `storeApiObject`
-
-### Actions
-* `fetch`
-* `clearApiObjects`
-* `apiObjectByUrl`
+https://stage.laska-api.fredmansky.com/api/v1.0/user-group/3
+```js
+{
+  "data": {
+    "id": 3,
+    "type": "user-group",
+    "attributes": {
+      "name": "Laska Salesman",
+      "handle": "laskaSalesman"
+    },
+    "links": {
+      "self": "https://stage.laska-api.fredmansky.com/api/v1.0/user-group/3"
+    }
+  },
+  "status_code": 200
+}
+```
