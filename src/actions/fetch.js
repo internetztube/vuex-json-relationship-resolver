@@ -22,7 +22,6 @@ const fetchMethod = (context, customHelpers, endpoint) => {
 
     if (customHelpers.hasOwnProperty('httpClient')) {
       const customHttpClient = customHelpers.httpClient(context.rootState, {endpoint});
-      debugger;
       if (customHttpClient) {
         httpClient = customHttpClient;
       }
