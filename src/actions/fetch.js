@@ -17,7 +17,7 @@ const fetchMethod = (context, customHelpers, endpoint) => {
       });
     }
 
-    if (customHelpers.hasOwnProperty('httpClient') && customHelpers.httpClient) {
+    if (customHelpers.hasOwnProperty('httpClient') && customHelpers.httpClient()) {
       promise = customHelpers.httpClient;
     }
 
