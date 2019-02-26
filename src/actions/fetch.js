@@ -4,10 +4,10 @@ const fetchMethod = (context, customHelpers, endpoint) => {
   return new Promise((resolve, reject) => {
     context.commit('setObjectLoading', endpoint)
     let headers = {}
-    if (customHelpers.hasOwnProperty('requestOptions')) headers = customHelpers.requestOptions(context.rootState, {endpoint})
 
-    let promise = (endpoint) => {
+    let httpClient = (endpoint) => {
       return new Promise((resolve, reject) => {
+        if (customHelpers.hasOwnProperty('requestOptions')) headers = customHelpers.requestOptions(context.rootState, {endpoint})
         fetch(endpoint, headers).then((response) => {
           if (!response.ok) reject(response)
           return response.json().then(body => {
@@ -17,11 +17,14 @@ const fetchMethod = (context, customHelpers, endpoint) => {
       });
     }
 
-    if (customHelpers.hasOwnProperty('httpClient') && customHelpers.httpClient()) {
-      promise = customHelpers.httpClient;
+    if (customHelpers.hasOwnProperty('httpClient')) {
+      const customHttpClient = customHelpers.httpClient(context.rootState, {endpoint});
+      if (customHttpClient) {
+        httpClient = customHttpClient;
+      }
     }
 
-    promise(endpoint).then(body => {
+    httpClient(endpoint).then(body => {
       context.commit('setObjectDoneLoading', endpoint)
       if (customHelpers.hasOwnProperty('onRequestFailed')) return customHelpers.onRequestFailed(context.rootState, {
         endpoint,
