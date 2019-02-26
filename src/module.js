@@ -1,4 +1,5 @@
 import fetchMethod from './actions/fetch'
+import handleObject from './actions/handle-object';
 
 const generator = (options) => {
   const customHelpers = typeof options === 'object' && typeof options.customHelpers === 'object' ? options.customHelpers : []
@@ -48,6 +49,9 @@ const generator = (options) => {
       }
     },
     actions: {
+      processObject(context, object) {
+        return handleObject(object, context);
+      },
       find (context, endpoint) {
         if (customHelpers.hasOwnProperty('buildEndpointUrl')) endpoint = customHelpers.buildEndpointUrl(context.rootState, { endpoint })
         const foundObjects = context.state.objects.filter(o => o.links.self === endpoint)
