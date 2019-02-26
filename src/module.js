@@ -53,8 +53,9 @@ const generator = (options) => {
         const foundObjects = context.state.objects.filter(o => o.links.self === endpoint)
         if (!foundObjects.length) {
           if (context.getters.isObjectLoading(endpoint)) return
-          fetchMethod(context, customHelpers, endpoint)
+          return fetchMethod(context, customHelpers, endpoint)
         }
+        return foundObjects;
       }
     }
   }

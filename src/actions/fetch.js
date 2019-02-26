@@ -1,7 +1,7 @@
 import handleObject from './handle-object'
 
 const fetchMethod = (context, customHelpers, endpoint) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((mainResolve, mainReject) => {
     context.commit('setObjectLoading', endpoint)
     let headers = {}
 
@@ -9,7 +9,10 @@ const fetchMethod = (context, customHelpers, endpoint) => {
       return new Promise((resolve, reject) => {
         if (customHelpers.hasOwnProperty('requestOptions')) headers = customHelpers.requestOptions(context.rootState, {endpoint})
         fetch(endpoint, headers).then((response) => {
-          if (!response.ok) reject(response)
+          if (!response.ok) {
+            mainReject(response)
+            return;
+          }
           return response.json().then(body => {
             resolve(body);
           });
@@ -19,6 +22,7 @@ const fetchMethod = (context, customHelpers, endpoint) => {
 
     if (customHelpers.hasOwnProperty('httpClient')) {
       const customHttpClient = customHelpers.httpClient(context.rootState, {endpoint});
+      debugger;
       if (customHttpClient) {
         httpClient = customHttpClient;
       }
@@ -36,10 +40,13 @@ const fetchMethod = (context, customHelpers, endpoint) => {
         for (let i = 0; i < body.data.length; i++) {
           result.push(handleObject(body.data[i], context))
         }
-        return result
+        mainResolve(result);
+        return
       }
-      return handleObject(body.data, context)
+      const object = handleObject(body.data, context)
+      mainResolve(object);
     }).catch(response => {
+      reject();
       context.commit('setObjectDoneLoading', endpoint)
     })
   })
