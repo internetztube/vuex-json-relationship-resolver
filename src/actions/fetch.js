@@ -45,7 +45,7 @@ const fetchMethod = (context, customHelpers, endpoint) => {
       const object = handleObject(body.data, context)
       mainResolve(object);
     }).catch(response => {
-      reject();
+      mainReject();
       context.commit('setObjectDoneLoading', endpoint)
     })
   })
