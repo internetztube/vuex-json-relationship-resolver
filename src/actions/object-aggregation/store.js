@@ -26,6 +26,7 @@ const save = ({ object, context }) => {
         })
       })
   })
+  return object
 }
 
 export default save
