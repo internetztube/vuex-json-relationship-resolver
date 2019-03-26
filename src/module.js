@@ -53,6 +53,7 @@ const generator = (options) => {
         return handleObject(object, context);
       },
       find (context, endpoint) {
+        if (!endpoint) return null;
         if (customHelpers.hasOwnProperty('buildEndpointUrl')) endpoint = customHelpers.buildEndpointUrl(context.rootState, { endpoint })
         const foundObjects = context.state.objects.filter(o => o.links.self === endpoint)
         if (!foundObjects.length) {

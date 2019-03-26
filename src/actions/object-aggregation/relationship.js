@@ -7,6 +7,10 @@ const buildRelationsKey = (name, isArray) => {
 }
 
 const findObjectByUrl = (context, url) => {
+  if (!url) {
+    return {_loading: false, _empty: true};
+  }
+
   context.dispatch('find', url)
   let foundObject = context.state.objects.filter(o => o.links.self === url)
   if (foundObject.length) {
