@@ -8,7 +8,7 @@ const handleObject = (object, context) => {
   object = objectRollback({object, context}); // must be first in chain!
   object = objectRelationshipAggregator({object, context});
   object = objectAttributesGetterSetter({object, context});
-  object = objectStore({object, context});
+  // object = objectStore({object, context});
 
   object = storeObject({object, context});
   return object
